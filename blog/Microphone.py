@@ -5,7 +5,11 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .models import MicrophoneCommand
 
-
+def home(request):
+    return JsonResponse({
+        "status": "online",
+        "message": "Omnitrix Microphone Server is running"
+    })
 # ==========================================
 # ANDROID → DJANGO
 # POST /api/microphone/command/
