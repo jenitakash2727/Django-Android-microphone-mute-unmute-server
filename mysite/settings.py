@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-import os
-
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -88,12 +86,23 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
 
-import dj_database_url
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('MYSQL_DATABASE', 'defaultdb'),
+        'USER': os.getenv('MYSQL_USER', 'avnadmin'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+        'HOST': os.getenv(
+            'MYSQL_HOST',
+            'mysql-2d5eb460-jenitakash221-cd96.c.aivencloud.com'
+        ),
+        'PORT': os.getenv('MYSQL_PORT', '11106'),
+        'OPTIONS': {
+            'ssl': {
+                'ssl_mode': 'REQUIRED',
+            },
+        },
+    }
 }
 
 
